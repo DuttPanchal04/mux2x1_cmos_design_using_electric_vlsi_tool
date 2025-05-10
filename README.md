@@ -23,16 +23,15 @@ Both designs have been implemented with schematic and layout views. Simulations 
 ## 📂 Folder Structure
 ```
 ├── CMOS_MUX_Transmission_Gate/
-│ ├── CMOS_MUX2x1_TG.sch
-│ ├── CMOS_MUX_TG2x1.ly
-│ └── screenshots/
+│ ├── Circuit Diagram ( .png )
+│ ├── Layout Diagram ( .png )
+│ └── Output waveforms ( .png )
+│ └── Project Library ( .jelib )
 ├── CMOS_MUX_Pure_CMOS_Logic/
-│ ├── CMOS_MUX2x1_CMOS.sch
-│ ├── CMOS_MUX2x1_CMOS.ly
-│ └── screenshots/
-├── docs/
-│ ├── design_flow.md
-│ └── known_issues.md
+│ ├── Circuit Diagram ( .png )
+│ ├── Layout Diagram ( .png )
+│ └── Output waveforms ( .png )
+│ └── Project Library ( .jelib )
 └── README.md
 ```
 ---
@@ -56,9 +55,25 @@ Using **two complementary transmission gates** controlled by `S` and `S'`.
    - Correct well-taps and vias.
 5. **DRC & LVS passed** successfully.
 
+[ Click here to check out Project Library + Schematic-Layout Diagram + Output Waveform with Issues. ](https://github.com/DuttPanchal04/mux2x1_cmos_design_using_electric_vlsi_tool/tree/main/CMOS_MUX2x1_TRANSMISSION_GATE)
+
 ### 🧪 Simulation Result ( Issue #1 )
 
 - ⚠️ Output `Y` not switches correctly between `A` and `B` depending on `S`.
+
+Output `Y` when Selection line `S=0`
+
+![OUTPUT WHEN SEL=0(I)](https://github.com/user-attachments/assets/116fa1e7-a1aa-41a1-b95a-b524e253498b)
+
+Output `Y` when Selection line `S=1`
+
+![OUTPUT WHEN SEL=1(I)](https://github.com/user-attachments/assets/1dccff9a-5bd9-4ab2-9b7a-c4db920273d3)
+
+As you see, based on Selection line input `S`, output `Y` not following inputs correctly. After some time, it becomes floating. 
+
+I also tried to connect a Driver Circuit ( Buffer ) at every inputs `A`, `B`, and `S` and also at output `Z`. Due to this floating at input signals stopeed but output `Z` still remains same and make problem.
+
+Try to fix it by collaborating with me in this project.
 
 ---
 
@@ -81,10 +96,18 @@ Using only standard **CMOS gates** (no transmission gates).
 4. **Layout** was drawn, and all connections were visually verified.
 5. DRC and LVS passed successfully.
 
+[ Click here to check out Project Library + Schematic-Layout Diagram + Output Waveform with Issues. ](https://github.com/DuttPanchal04/mux2x1_cmos_design_using_electric_vlsi_tool/tree/main/MUX2x1_PURE_CMOS_LOGIC)
+
 ### ⚠️ Observed Issues
 
 - When `S = 1`, `Y = B` works correctly.
-- When `S = 0`, `Y ≠ A` — A-path fails to control `Y`.
+
+![OUTPUT WHEN SEL=1(ii)](https://github.com/user-attachments/assets/77fca9ac-a3b4-4213-9a7c-367122ae6222)
+
+- When `S = 0`, `Y ≠ A` — A-path fails to control `Y`. ( Issue #2 )
+
+![OUTPUT WHEN SEL=0(II)](https://github.com/user-attachments/assets/ffa26b98-8db8-4a60-bcd7-5251a6809c6f)
+
 - Possible causes:
    - Incorrect stacking of transistors.
    - Missing connection in A path.
